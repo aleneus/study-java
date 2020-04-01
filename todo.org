@@ -1,0 +1,5 @@
+* DONE [t] Replace here the draft about testing
+* TODO [t] Add example just for gradle
+* TODO [t] Add links about Java to README
+* TODO [t] Add links about gradle to readme
+* TODO [t] Add links about another build systems to README

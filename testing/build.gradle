@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+jar {
+    baseName = 'security'
+    version =  '0.1.0'
+
+    // manifest {
+    //	attributes 'Main-Class': 'security.App'
+    // }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11'
+}
+
+sourceSets {
+    test
+}
