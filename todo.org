@@ -1,5 +1,7 @@
 * DONE [t] Replace here the draft about testing
-* TODO [t] Add example just for gradle
+* DONE [t] Add links about gradle
+* DONE [t] Add example for application and gradle
+* TODO [t] Add README.md to demo_testing
 * TODO [t] Add links about Java to README
-* TODO [t] Add links about gradle to readme
+* TODO [t] Write short text about gradle wrapper
 * TODO [t] Add links about another build systems to README

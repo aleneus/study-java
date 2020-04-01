@@ -1,5 +1,11 @@
-testing/.gradle
-testing/build
-testing/gradle
-testing/gradlew
-testing/gradlew.bat
+demo_testing/.gradle
+demo_testing/build
+demo_testing/gradle
+demo_testing/gradlew
+demo_testing/gradlew.bat
+
+demo_gradle/.gradle
+demo_gradle/build
+demo_gradle/gradle
+demo_gradle/gradlew
+demo_gradle/gradlew.bat
