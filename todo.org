@@ -3,7 +3,8 @@
 * DONE [t] Add example for application and gradle
 * DONE [t] docs: Add README.md to demo_testing
 * DONE [t] feat: demo-testing: drafty implement stub storage
-* TODO [t] test: add tests for stub storage
+* DONE [t] test: demo-testing: add more tests for stub storage
+* TODO [t] feat: logging
 * TODO [t] ref: add interface for driver
 * TODO [t] docs: пояснить конструкцию @Test
 * TODO [t] Add links about Java to README.md

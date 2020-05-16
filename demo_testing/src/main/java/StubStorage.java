@@ -9,6 +9,13 @@ public class StubStorage {
     String data;
 
     /**
+     * Constructor
+     */
+    public StubStorage() {
+	data = "";
+    }
+
+    /**
      * Writes string data to the storage
      */
     public void write(String s) {
