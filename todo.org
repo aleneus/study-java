@@ -4,8 +4,9 @@
 * DONE [t] docs: Add README.md to demo_testing
 * DONE [t] feat: demo-testing: drafty implement stub storage
 * DONE [t] test: demo-testing: add more tests for stub storage
+* DONE [t] ref: add interface for driver
+* TODO [t] ref:  think about name Storage (not canonical)
 * TODO [t] feat: logging
-* TODO [t] ref: add interface for driver
 * TODO [t] docs: пояснить конструкцию @Test
 * TODO [t] Add links about Java to README.md
 * TODO [t] Write short text about gradle wrapper

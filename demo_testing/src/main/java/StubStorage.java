@@ -4,7 +4,7 @@ package security;
  * Stub storage imitates the real one.
  @author Aleksandr Popov
 */
-public class StubStorage {
+public class StubStorage implements Storage {
     /** Field data contains all writed data */
     String data;
 
