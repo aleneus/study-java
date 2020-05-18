@@ -5,11 +5,7 @@ import security.*;
 
 public class SecurityTest {
     @Test public void testNew() {
-	// Scenario: создание объекта
-	// Given
-	// When
-	Security s = new Security();
-	// Then
+	Security s = new Security(new StubStorage());
 	assertTrue(s != null);
     }
 }

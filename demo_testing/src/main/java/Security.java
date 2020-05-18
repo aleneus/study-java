@@ -1,8 +1,19 @@
 package security;
 
 
+/**
+ * Provides aothentication functionality.
+ */
 public class Security {
-    public static void Bar() {
-	StubStorage storage = new StubStorage();
+    /**
+     * Storage used for hold data about users
+     */
+    Storage storage;
+
+    /**
+     * Constructor
+     */
+    public Security(Storage s) {
+	storage = s;
     }
 }
