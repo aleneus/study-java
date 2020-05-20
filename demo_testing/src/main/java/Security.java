@@ -31,6 +31,12 @@ public class Security {
      * Checks if user exists
      */
     public boolean userExists(String name) {
+	String c = storage.read();
+
+	if (c.length() > 0) {
+	    return true;
+	}
+
 	return false;
     }
 

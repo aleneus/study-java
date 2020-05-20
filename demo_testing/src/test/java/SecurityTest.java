@@ -42,4 +42,15 @@ public class SecurityTest {
 	boolean e = sc.userExists("us");
 	assertFalse(e);
     }
+
+    @Test public void testUserExists_OnlyThisUserExists() {
+	StubStorage st = new StubStorage();
+	st.write("us:ps\n");
+	Security sc = new Security(st);
+	boolean e = sc.userExists("us");
+	assertTrue(e);
+    }
+
+    // TODO: two users in storage
+    // TODO: storage is not empty, user is not exists
 }
