@@ -6,6 +6,9 @@
 * DONE [t] test: demo-testing: add more tests for stub storage
 * DONE [t] ref: add interface for storage
 * DONE [t] feat: Security: use Storage interface in constructor
+* TODO [t] feat: Security: add user
+* TODO [t] feat: Security: check user
+* TODO [t] feat: Security: remove user
 * TODO [p] ref:  think about name Storage (not canonical)
 * TODO [t] feat: add logging
 * TODO [t] docs: пояснить конструкцию @Test
