@@ -43,6 +43,19 @@ public class SecurityTest {
 	assertEquals(content, "user1:password1\n");
     }
 
+    @Test public void test_AddUser_AddExistingUser() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	storage.write(content);
+
+	assertFalse(security.addUser("u1", "xx"));
+	assertFalse(security.addUser("u2", "yy"));
+    }
+
     @Test public void test_AddUserOutputsSuccess_SingleUser() {
 	StubStorage storage = new StubStorage();
 	Security security = new Security(storage);
@@ -81,7 +94,20 @@ public class SecurityTest {
 	assertFalse(security.userExists("u3"));
     }
 
-    // TODO: test: add existing user
-    // TODO: test: double adding of same user
-    // TODO: feat: validation of password
+    @Test public void test_Check() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	content += "u3:p3\n";
+	storage.write(content);
+
+	assertTrue(security.check("u1", "p1"));
+	assertFalse(security.check("u1", "p2"));
+	assertFalse(security.check("u2", "p1"));
+	assertTrue(security.check("u2", "p2"));
+	assertFalse(security.check("u4", ""));
+    }
 }

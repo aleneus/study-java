@@ -8,14 +8,18 @@
 ** DONE [t] ref: add interface for storage
 ** DONE [t] feat: Security: use Storage interface in constructor
 ** DONE [t] feat: Security: add user
-** TODO [t] feat: Security: check user
+** DONE [t] feat: add logging
+** DONE [t] feat: Security: check user
+** TODO [t] ref: add method to hash password
+** TODO [t] test: wrong content format
 ** TODO [t] feat: Security: remove user
 ** TODO [e] test: use setup method
 ** TODO [e] opt: Security: reduce readings
-* later
+** TODO [t] feat: validation of password
 ** TODO [t] ref: add User class
+** TODO [t] docs: logging opportunities
+* later
 ** TODO [p] ref:  think about name Storage (not canonical)
-** TODO [t] feat: add logging
 ** TODO [t] docs: пояснить конструкцию @Test
 ** TODO [t] feat: implement Security class
 ** TODO [t] docs: add links about Java to README.md
