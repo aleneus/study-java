@@ -1,18 +1,23 @@
-* DONE [t] Replace here the draft about testing
-* DONE [t] Add links about gradle
-* DONE [t] Add example for application and gradle
-* DONE [t] docs: Add README.md to demo_testing
-* DONE [t] feat: demo-testing: drafty implement stub storage
-* DONE [t] test: demo-testing: add more tests for stub storage
-* DONE [t] ref: add interface for storage
-* DONE [t] feat: Security: use Storage interface in constructor
-* TODO [t] feat: Security: add user
-* TODO [t] feat: Security: check user
-* TODO [t] feat: Security: remove user
-* TODO [p] ref:  think about name Storage (not canonical)
-* TODO [t] feat: add logging
-* TODO [t] docs: пояснить конструкцию @Test
-* TODO [t] feat: implement Security class
-* TODO [t] docs: add links about Java to README.md
-* TODO [t] docs: write short text about gradle wrapper
-* TODO [t] docs: add links about another build systems to README
+* 0.1.0
+** DONE [t] Replace here the draft about testing
+** DONE [t] Add links about gradle
+** DONE [t] Add example for application and gradle
+** DONE [t] docs: Add README.md to demo_testing
+** DONE [t] feat: demo-testing: drafty implement stub storage
+** DONE [t] test: demo-testing: add more tests for stub storage
+** DONE [t] ref: add interface for storage
+** DONE [t] feat: Security: use Storage interface in constructor
+** DONE [t] feat: Security: add user
+** TODO [t] feat: Security: check user
+** TODO [t] feat: Security: remove user
+** TODO [e] test: use setup method
+** TODO [e] opt: Security: reduce readings
+* later
+** TODO [t] ref: add User class
+** TODO [p] ref:  think about name Storage (not canonical)
+** TODO [t] feat: add logging
+** TODO [t] docs: пояснить конструкцию @Test
+** TODO [t] feat: implement Security class
+** TODO [t] docs: add links about Java to README.md
+** TODO [t] docs: write short text about gradle wrapper
+** TODO [t] docs: add links about another build systems to README

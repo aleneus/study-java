@@ -4,53 +4,84 @@ import security.*;
 
 
 public class SecurityTest {
-    @Test public void testAddUser_ContentIncreased() {
-	StubStorage st = new StubStorage();
-	Security sc = new Security(st);
-	sc.addUser("user", "password");
-	String content = st.read();
+    @Test public void test_AddUser_ContentIncreased() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	security.addUser("user", "password");
+	String content = storage.read();
 	assertTrue(content.length() > 0);
     }
 
-    @Test public void testAddUser_ProperContent() {
-	StubStorage st = new StubStorage();
-	Security sc = new Security(st);
-	sc.addUser("user", "password");
-	String content = st.read();
+    @Test public void test_AddUser_ProperContent() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	security.addUser("user", "password");
+	String content = storage.read();
 	assertEquals(content, "user:password\n");
     }
 
-    @Test public void testAddUser_TwoDifferentUsers() {
-	StubStorage st = new StubStorage();
-	Security sc = new Security(st);
-	sc.addUser("user1", "password1");
-	sc.addUser("user2", "password2");
-	String content = st.read();
+    @Test public void test_AddUser_TwoDifferentUsers() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	security.addUser("user1", "password1");
+	security.addUser("user2", "password2");
+	String content = storage.read();
 	assertEquals(content, "user1:password1\nuser2:password2\n");
     }
 
-    @Test public void testAddUserOutput_SingleUser() {
-	StubStorage st = new StubStorage();
-	Security sc = new Security(st);
-	boolean added = sc.addUser("us", "ps");
+    @Test public void test_AddUser_TwoSameUsers() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	assertTrue(security.addUser("user1", "password1"));
+	assertFalse(security.addUser("user1", "password2"));
+
+	String content = storage.read();
+	assertEquals(content, "user1:password1\n");
+    }
+
+    @Test public void test_AddUserOutputsSuccess_SingleUser() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	boolean added = security.addUser("us", "ps");
 	assertTrue(added);
     }
 
-    @Test public void testUserExists_NoUsers() {
-	StubStorage st = new StubStorage();
-	Security sc = new Security(st);
-	boolean e = sc.userExists("us");
+    @Test public void test_UserExists_NoUsers() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	boolean e = security.userExists("us");
 	assertFalse(e);
     }
 
-    @Test public void testUserExists_OnlyThisUserExists() {
-	StubStorage st = new StubStorage();
-	st.write("us:ps\n");
-	Security sc = new Security(st);
-	boolean e = sc.userExists("us");
-	assertTrue(e);
+    @Test public void test_UserExists_OnlyThisUserExists() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	storage.write("us:ps\n");
+	assertTrue(security.userExists("us"));
     }
 
-    // TODO: two users in storage
-    // TODO: storage is not empty, user is not exists
+    @Test public void test_UserExists_TwoUsers() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	storage.write(content);
+
+	assertTrue(security.userExists("u1"));
+	assertTrue(security.userExists("u2"));
+	assertFalse(security.userExists("u3"));
+    }
+
+    // TODO: test: add existing user
+    // TODO: test: double adding of same user
+    // TODO: feat: validation of password
 }

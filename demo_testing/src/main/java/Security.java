@@ -1,5 +1,7 @@
 package security;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Provides aothentication functionality.
@@ -9,6 +11,8 @@ public class Security {
      * Storage used for hold data about users
      */
     Storage storage;
+
+    public static final Logger log = Logger.getLogger("Security");
 
     /**
      * Constructor
@@ -21,6 +25,10 @@ public class Security {
      * Registers new user
      */
     public boolean addUser(String name, String passwd) {
+	if (userExists(name)) {
+	    return false;
+	}
+
 	String s = storage.read();
 	s = s + buildLine(name, passwd) + "\n";
 	storage.write(s);
@@ -33,11 +41,23 @@ public class Security {
     public boolean userExists(String name) {
 	String c = storage.read();
 
-	if (c.length() > 0) {
-	    return true;
+	String [] lines = c.split("\n");
+
+	boolean found = false;
+	for (int i = 0; i < lines.length; i++) {
+	    String []parts = lines[i].split(":");
+
+	    if (parts.length < 2) {
+		continue;
+	    }
+
+	    if (parts[0].equals(name)) {
+		found = true;
+		break;
+	    }
 	}
 
-	return false;
+	return found;
     }
 
     /**

@@ -3,3 +3,6 @@ compile:
 
 check:
 	@gradle wrapper test
+
+checkv:
+	@gradle test --info
