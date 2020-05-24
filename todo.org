@@ -10,6 +10,10 @@
 ** DONE [t] feat: Security: add user
 ** DONE [t] feat: add logging
 ** DONE [t] feat: Security: check user
+** DONE [t] feat: add empty project to quick write demo code with students
+** TODO [t] docs: add info about start project with gradle
+** TODO [t] docs: add info about more asserts
+** TODO [e] ref: rename demo_testing and demo_testing_empty
 ** TODO [t] ref: add method to hash password
 ** TODO [t] test: wrong content format
 ** TODO [t] feat: Security: remove user
@@ -25,3 +29,4 @@
 ** TODO [t] docs: add links about Java to README.md
 ** TODO [t] docs: write short text about gradle wrapper
 ** TODO [t] docs: add links about another build systems to README
+** TODO [t] ref: clean up gitignore

@@ -9,3 +9,7 @@ demo_gradle/build
 demo_gradle/gradle
 demo_gradle/gradlew
 demo_gradle/gradlew.bat
+
+*.lock
+*.bin
+cache.properties
