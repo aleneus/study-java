@@ -82,6 +82,9 @@ public class Security {
 	return false;
     }
 
+    /**
+     * Removes user if the user exists and password is correct
+     */
     public boolean removeUser(String login, String passwd) {
 	String c = storage.read();
 
