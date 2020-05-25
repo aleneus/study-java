@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * Provides aothentication functionality.
  */
 public class Security {
+    final String DELIMITER = ":";
+
     /**
      * Storage used for hold data about users
      */
@@ -49,7 +51,7 @@ public class Security {
 		continue;
 	    }
 
-	    String []parts = curr.split(":");
+	    String []parts = curr.split(DELIMITER);
 
 	    if (parts[0].equals(login)) {
 		return true;
@@ -72,9 +74,9 @@ public class Security {
 		continue;
 	    }
 
-	    String []parts = curr.split(":");
+	    String []parts = curr.split(DELIMITER);
 
-	    if (parts[0].equals(login) && parts[1].equals(passwd)) {
+	    if (parts[0].equals(login) && parts[1].equals(hash(passwd))) {
 		return true;
 	    }
 	}
@@ -96,7 +98,7 @@ public class Security {
 	    curr = linesOld.get(i);
 
 	    if (lineValid(curr)) {
-		String []parts = curr.split(":");
+		String []parts = curr.split(DELIMITER);
 		if (parts[0].equals(login) && parts[1].equals(passwd)) {
 		    found = true;
 		    continue;
@@ -111,10 +113,8 @@ public class Security {
     }
 
     private boolean lineValid(String line) {
-	for (int i=0; i<line.length(); i++) {
-	    if (line.charAt(i) == ':') {
-		return true;
-	    }
+	if (line.split(DELIMITER).length == 2) {
+	    return true;
 	}
 	return false;
     }
@@ -141,6 +141,11 @@ public class Security {
     }
 
     private String buildLine(String login, String passwd) {
-	return login + ":" + passwd;
+	return login + DELIMITER + passwd;
+    }
+
+    private String hash(String passwd) {
+	// note: this is the stub
+	return passwd;
     }
 }
