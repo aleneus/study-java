@@ -11,7 +11,7 @@
 ** DONE [t] feat: add logging
 ** DONE [t] feat: Security: check user
 ** DONE [t] feat: add empty project to quick write demo code with students
-** TODO [t] docs: add info about start project with gradle
+** DONE [t] docs: add info about start project with gradle
 ** TODO [t] docs: add info about more asserts
 ** TODO [e] ref: rename demo_testing and demo_testing_empty
 ** TODO [t] ref: add method to hash password
