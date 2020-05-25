@@ -8,7 +8,8 @@ public class SecurityTest {
 	StubStorage storage = new StubStorage();
 	Security security = new Security(storage);
 
-	security.addUser("user", "password");
+	boolean added = security.addUser("user", "password");
+	assertTrue(added);
 	String content = storage.read();
 	assertTrue(content.length() > 0);
     }
@@ -17,7 +18,8 @@ public class SecurityTest {
 	StubStorage storage = new StubStorage();
 	Security security = new Security(storage);
 
-	security.addUser("user", "password");
+	boolean added = security.addUser("user", "password");
+	assertTrue(added);
 	String content = storage.read();
 	assertEquals(content, "user:password\n");
     }
@@ -26,8 +28,14 @@ public class SecurityTest {
 	StubStorage storage = new StubStorage();
 	Security security = new Security(storage);
 
-	security.addUser("user1", "password1");
-	security.addUser("user2", "password2");
+	boolean added;
+
+	added = security.addUser("user1", "password1");
+	assertTrue(added);
+
+	added = security.addUser("user2", "password2");
+	assertTrue(added);
+
 	String content = storage.read();
 	assertEquals(content, "user1:password1\nuser2:password2\n");
     }
@@ -54,14 +62,6 @@ public class SecurityTest {
 
 	assertFalse(security.addUser("u1", "xx"));
 	assertFalse(security.addUser("u2", "yy"));
-    }
-
-    @Test public void test_AddUserOutputsSuccess_SingleUser() {
-	StubStorage storage = new StubStorage();
-	Security security = new Security(storage);
-
-	boolean added = security.addUser("us", "ps");
-	assertTrue(added);
     }
 
     @Test public void test_UserExists_NoUsers() {
@@ -94,7 +94,7 @@ public class SecurityTest {
 	assertFalse(security.userExists("u3"));
     }
 
-    @Test public void test_Check() {
+    @Test public void test_CheckUser() {
 	StubStorage storage = new StubStorage();
 	Security security = new Security(storage);
 
@@ -104,10 +104,69 @@ public class SecurityTest {
 	content += "u3:p3\n";
 	storage.write(content);
 
-	assertTrue(security.check("u1", "p1"));
-	assertFalse(security.check("u1", "p2"));
-	assertFalse(security.check("u2", "p1"));
-	assertTrue(security.check("u2", "p2"));
-	assertFalse(security.check("u4", ""));
+	assertTrue(security.checkUser("u1", "p1"));
+	assertFalse(security.checkUser("u1", "p2"));
+	assertFalse(security.checkUser("u2", "p1"));
+	assertTrue(security.checkUser("u2", "p2"));
+	assertFalse(security.checkUser("u4", ""));
+    }
+
+    @Test public void test_RemoveUser_UnknownUser() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	content += "u3:p3\n";
+	storage.write(content);
+
+	boolean removed = security.removeUser("u4", "p4");
+	assertFalse(removed);
+    }
+
+    @Test public void test_RemoveUser_FirstUser() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	content += "u3:p3\n";
+	storage.write(content);
+
+	boolean removed = security.removeUser("u1", "p1");
+	assertTrue(removed);
+	assertEquals(storage.read(), "u2:p2\nu3:p3\n");
+    }
+
+    @Test public void test_RemoveUser_MiddleUser() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	content += "u3:p3\n";
+	storage.write(content);
+
+	boolean removed = security.removeUser("u2", "p2");
+	assertTrue(removed);
+	assertEquals(storage.read(), "u1:p1\nu3:p3\n");
+    }
+
+    @Test public void test_RemoveUser_LastUser() {
+	StubStorage storage = new StubStorage();
+	Security security = new Security(storage);
+
+	String content = "";
+	content += "u1:p1\n";
+	content += "u2:p2\n";
+	content += "u3:p3\n";
+	storage.write(content);
+
+	boolean removed = security.removeUser("u3", "p3");
+	assertTrue(removed);
+	assertEquals(storage.read(), "u1:p1\nu2:p2\n");
     }
 }

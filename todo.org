@@ -14,9 +14,11 @@
 ** DONE [t] docs: add info about start project with gradle
 ** DONE [t] docs: add info about more asserts
 ** DONE [e] ref: rename demo_testing_empty
+** DONE [t] feat: Security: remove user
+** TODO [t] ref: use list of users as model in Security, add commit method
+** TODO [t] ref: refactor removeUser
 ** TODO [t] ref: add method to hash password
 ** TODO [t] test: wrong content format
-** TODO [t] feat: Security: remove user
 ** TODO [e] test: use setup method
 ** TODO [e] opt: Security: reduce readings
 ** TODO [t] feat: validation of password

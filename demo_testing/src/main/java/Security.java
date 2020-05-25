@@ -2,6 +2,7 @@ package security;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  * Provides aothentication functionality.
@@ -61,7 +62,7 @@ public class Security {
     /**
      * Checks login and password of user
      */
-    public boolean check(String login, String passwd) {
+    public boolean checkUser(String login, String passwd) {
 	String c = storage.read();
 
 	String [] lines = c.split("\n");
@@ -79,6 +80,41 @@ public class Security {
 	}
 
 	return false;
+    }
+
+    public boolean removeUser(String login, String passwd) {
+	String c = storage.read();
+
+	String [] lines = c.split("\n");
+	ArrayList<String> linesNew = new ArrayList<>();
+
+	boolean found = false;
+	for (int i = 0; i < lines.length; i++) {
+	    String curLine = lines[i];
+
+	    if (!lineValid(curLine)) {
+		linesNew.add(curLine);
+		continue;
+	    }
+
+	    String []parts = curLine.split(":");
+
+	    if (parts[0].equals(login) && parts[1].equals(passwd)) {
+		found = true;
+		continue;
+	    }
+
+	    linesNew.add(lines[i]);
+	}
+
+	String contentNew = "";
+	for(int i = 0; i<linesNew.size(); i++) {
+	    String line = linesNew.get(i);
+	    contentNew += line + "\n";
+	}
+
+	storage.write(contentNew);
+	return found;
     }
 
     /**
