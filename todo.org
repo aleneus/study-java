@@ -15,6 +15,7 @@
 ** DONE [t] docs: add info about more asserts
 ** DONE [e] ref: rename demo_testing_empty
 ** DONE [t] feat: Security: remove user
+** DONE [t] ref: hide load and save code in methods
 ** TODO [t] ref: use list of users as model in Security, add commit method
 ** TODO [t] ref: refactor removeUser
 ** TODO [t] ref: add method to hash password

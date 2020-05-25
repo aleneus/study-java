@@ -104,11 +104,11 @@ public class SecurityTest {
 	content += "u3:p3\n";
 	storage.write(content);
 
-	assertTrue(security.checkUser("u1", "p1"));
-	assertFalse(security.checkUser("u1", "p2"));
-	assertFalse(security.checkUser("u2", "p1"));
-	assertTrue(security.checkUser("u2", "p2"));
-	assertFalse(security.checkUser("u4", ""));
+	assertTrue(security.auth("u1", "p1"));
+	assertFalse(security.auth("u1", "p2"));
+	assertFalse(security.auth("u2", "p1"));
+	assertTrue(security.auth("u2", "p2"));
+	assertFalse(security.auth("u4", ""));
     }
 
     @Test public void test_RemoveUser_UnknownUser() {

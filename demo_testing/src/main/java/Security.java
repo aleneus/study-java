@@ -40,16 +40,16 @@ public class Security {
      * Checks if user exists
      */
     public boolean userExists(String login) {
-	String c = storage.read();
+	ArrayList<String> lines = load();
 
-	String [] lines = c.split("\n");
+	for(int i = 0; i < lines.size(); i++) {
+	    String curr = lines.get(i);
 
-	for (int i = 0; i < lines.length; i++) {
-	    if (!lineValid(lines[i])) {
+	    if (!lineValid(curr)) {
 		continue;
 	    }
 
-	    String []parts = lines[i].split(":");
+	    String []parts = curr.split(":");
 
 	    if (parts[0].equals(login)) {
 		return true;
@@ -62,17 +62,17 @@ public class Security {
     /**
      * Checks login and password of user
      */
-    public boolean checkUser(String login, String passwd) {
-	String c = storage.read();
+    public boolean auth(String login, String passwd) {
+	ArrayList<String> lines = load();
 
-	String [] lines = c.split("\n");
+	for (int i = 0; i < lines.size(); i++) {
+	    String curr = lines.get(i);
 
-	for (int i = 0; i < lines.length; i++) {
-	    if (!lineValid(lines[i])) {
+	    if (!lineValid(curr)) {
 		continue;
 	    }
 
-	    String []parts = lines[i].split(":");
+	    String []parts = curr.split(":");
 
 	    if (parts[0].equals(login) && parts[1].equals(passwd)) {
 		return true;
@@ -86,45 +86,28 @@ public class Security {
      * Removes user if the user exists and password is correct
      */
     public boolean removeUser(String login, String passwd) {
-	String c = storage.read();
-
-	String [] lines = c.split("\n");
-	ArrayList<String> linesNew = new ArrayList<>();
+	ArrayList<String> linesOld = load();
+	ArrayList<String> linesNew = new ArrayList<String>();
 
 	boolean found = false;
-	for (int i = 0; i < lines.length; i++) {
-	    String curLine = lines[i];
+	String curr;
 
-	    if (!lineValid(curLine)) {
-		linesNew.add(curLine);
-		continue;
+	for (int i = 0; i < linesOld.size(); i++) {
+	    curr = linesOld.get(i);
+
+	    if (lineValid(curr)) {
+		String []parts = curr.split(":");
+		if (parts[0].equals(login) && parts[1].equals(passwd)) {
+		    found = true;
+		    continue;
+		}
 	    }
 
-	    String []parts = curLine.split(":");
-
-	    if (parts[0].equals(login) && parts[1].equals(passwd)) {
-		found = true;
-		continue;
-	    }
-
-	    linesNew.add(lines[i]);
+	    linesNew.add(curr);
 	}
 
-	String contentNew = "";
-	for(int i = 0; i<linesNew.size(); i++) {
-	    String line = linesNew.get(i);
-	    contentNew += line + "\n";
-	}
-
-	storage.write(contentNew);
+	save(linesNew);
 	return found;
-    }
-
-    /**
-     * Builds line with record about single user
-     */
-    public String buildLine(String login, String passwd) {
-	return login + ":" + passwd;
     }
 
     private boolean lineValid(String line) {
@@ -134,5 +117,30 @@ public class Security {
 	    }
 	}
 	return false;
+    }
+
+    private ArrayList<String> load() {
+	String c = storage.read();
+
+	String [] lines = c.split("\n");
+
+	ArrayList<String> res = new ArrayList<String>();
+	for (int i = 0; i < lines.length; i++) {
+	    res.add(lines[i]);
+	}
+
+	return res;
+    }
+
+    private void save(ArrayList<String> lines) {
+	String s = "";
+	for (int i = 0; i < lines.size(); i++) {
+	    s = s + lines.get(i) + "\n";
+	}
+	storage.write(s);
+    }
+
+    private String buildLine(String login, String passwd) {
+	return login + ":" + passwd;
     }
 }
