@@ -27,23 +27,10 @@ public class Security {
     /**
      * Registers new user
      */
-    public boolean addUser(String login, String passwd) {
-	if (userExists(login)) {
-	    return false;
-	}
-
-	String s = storage.read();
-	s = s + buildLine(login, passwd) + "\n";
-	storage.write(s);
-	return true;
-    }
-
-    /**
-     * Checks if user exists
-     */
-    public boolean userExists(String login) {
+    public boolean addUser(User user) {
 	ArrayList<String> lines = load();
 
+	boolean found = false;
 	for(int i = 0; i < lines.size(); i++) {
 	    String curr = lines.get(i);
 
@@ -53,18 +40,26 @@ public class Security {
 
 	    String []parts = curr.split(DELIMITER);
 
-	    if (parts[0].equals(login)) {
-		return true;
+	    if (parts[0].equals(user.getName())) {
+		found = true;
+		break;
 	    }
 	}
 
-	return false;
+	if (found) {
+	    return false;
+	}
+
+	String s = storage.read();
+	s = s + buildLine(user) + "\n";
+	storage.write(s);
+	return true;
     }
 
     /**
      * Checks login and password of user
      */
-    public boolean auth(String login, String passwd) {
+    public boolean auth(User user) {
 	ArrayList<String> lines = load();
 
 	for (int i = 0; i < lines.size(); i++) {
@@ -76,7 +71,7 @@ public class Security {
 
 	    String []parts = curr.split(DELIMITER);
 
-	    if (parts[0].equals(login) && parts[1].equals(hash(passwd))) {
+	    if (parts[0].equals(user.getName()) && parts[1].equals(user.getHash())) {
 		return true;
 	    }
 	}
@@ -87,7 +82,7 @@ public class Security {
     /**
      * Removes user if the user exists and password is correct
      */
-    public boolean removeUser(String login, String passwd) {
+    public boolean removeUser(User user) {
 	ArrayList<String> linesOld = load();
 	ArrayList<String> linesNew = new ArrayList<String>();
 
@@ -99,7 +94,7 @@ public class Security {
 
 	    if (lineValid(curr)) {
 		String []parts = curr.split(DELIMITER);
-		if (parts[0].equals(login) && parts[1].equals(passwd)) {
+		if (parts[0].equals(user.getName()) && parts[1].equals(user.getHash())) {
 		    found = true;
 		    continue;
 		}
@@ -140,12 +135,8 @@ public class Security {
 	storage.write(s);
     }
 
-    private String buildLine(String login, String passwd) {
-	return login + DELIMITER + passwd;
-    }
-
-    private String hash(String passwd) {
-	// note: this is the stub
-	return passwd;
+    private String buildLine(User user) {
+	String line = user.getName() + DELIMITER + user.getHash();
+	return line;
     }
 }

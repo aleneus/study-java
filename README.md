@@ -8,3 +8,4 @@
 * [Документирование кода](https://www.fandroid.info/dokumentirovanie-koda/)
 * [Документирование javadoc](http://java-online.ru/java-javadoc.xhtml)
 * [Java @Аннотации. Что это и как этим пользоваться?](https://javarush.ru/groups/posts/1896-java-annotacii-chto-ehto-i-kak-ehtim-poljhzovatjhsja)
+* [Перегрузка методов equals() и hashCode() в Java](https://javarush.ru/groups/posts/1340-peregruzka-metodov-equals-i-hashcode-v-java)
