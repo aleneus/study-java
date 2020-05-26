@@ -17,6 +17,7 @@
 ** DONE [t] feat: Security: remove user
 ** DONE [t] ref: hide load and save code in methods
 ** DONE [t] ref: add stub method to hash password
+** DONE [t] docs: how to create gradle project in eclipse
 ** TODO [t] ref: add User class
 ** TODO [t] ref: use list of users as model in Security, add commit method
 ** TODO [t] test: wrong content format

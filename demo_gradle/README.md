@@ -9,3 +9,4 @@
 * [Сборка Java-проекта с использованием
   Gradle](https://spring-projects.ru/guides/gradle/)
 * [project-examples](https://github.com/jfrog/project-examples/tree/master/gradle-examples)
+* [Using the Gradle build system in the Eclipse IDE - Tutorial](https://www.vogella.com/tutorials/EclipseGradle/article.html)
