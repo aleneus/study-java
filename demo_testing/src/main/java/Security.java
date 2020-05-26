@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 
 /**
- * Provides aothentication functionality.
+ * Provides authentication functionality.
  */
 public class Security {
     final String DELIMITER = ":";
@@ -28,31 +28,17 @@ public class Security {
      * Registers new user
      */
     public boolean addUser(User user) {
-	ArrayList<String> lines = load();
+	ArrayList<User> users = loadUsers();
 
-	boolean found = false;
-	for(int i = 0; i < lines.size(); i++) {
-	    String curr = lines.get(i);
-
-	    if (!lineValid(curr)) {
-		continue;
-	    }
-
-	    String []parts = curr.split(DELIMITER);
-
-	    if (parts[0].equals(user.getName())) {
-		found = true;
-		break;
+	for(int i = 0; i < users.size(); i++) {
+	    User curr = users.get(i);
+	    if (user.getName().equals(curr.getName())) {
+		return false;
 	    }
 	}
 
-	if (found) {
-	    return false;
-	}
-
-	String s = storage.read();
-	s = s + buildLine(user) + "\n";
-	storage.write(s);
+	users.add(user);
+	saveUsers(users);
 	return true;
     }
 
@@ -60,18 +46,10 @@ public class Security {
      * Checks login and password of user
      */
     public boolean auth(User user) {
-	ArrayList<String> lines = load();
-
-	for (int i = 0; i < lines.size(); i++) {
-	    String curr = lines.get(i);
-
-	    if (!lineValid(curr)) {
-		continue;
-	    }
-
-	    String []parts = curr.split(DELIMITER);
-
-	    if (parts[0].equals(user.getName()) && parts[1].equals(user.getHash())) {
+	ArrayList<User> users = loadUsers();
+	for (int i = 0; i < users.size(); i++) {
+	    User curr = users.get(i);
+	    if (user.equals(curr)) {
 		return true;
 	    }
 	}
@@ -83,54 +61,46 @@ public class Security {
      * Removes user if the user exists and password is correct
      */
     public boolean removeUser(User user) {
-	ArrayList<String> linesOld = load();
-	ArrayList<String> linesNew = new ArrayList<String>();
+	ArrayList<User> usersOld = loadUsers();
+	ArrayList<User> usersNew = new ArrayList<User>();
 
 	boolean found = false;
-	String curr;
 
-	for (int i = 0; i < linesOld.size(); i++) {
-	    curr = linesOld.get(i);
-
-	    if (lineValid(curr)) {
-		String []parts = curr.split(DELIMITER);
-		if (parts[0].equals(user.getName()) && parts[1].equals(user.getHash())) {
-		    found = true;
-		    continue;
-		}
+	for (int i = 0; i < usersOld.size(); i++) {
+	    User curr = usersOld.get(i);
+	    if (curr.equals(user)) {
+		found = true;
+		continue;
 	    }
 
-	    linesNew.add(curr);
+	    usersNew.add(curr);
 	}
 
-	save(linesNew);
+	saveUsers(usersNew);
 	return found;
     }
 
-    private boolean lineValid(String line) {
-	if (line.split(DELIMITER).length == 2) {
-	    return true;
-	}
-	return false;
-    }
-
-    private ArrayList<String> load() {
+    private ArrayList<User> loadUsers() {
 	String c = storage.read();
 
 	String [] lines = c.split("\n");
 
-	ArrayList<String> res = new ArrayList<String>();
+	ArrayList<User> res = new ArrayList<User>();
 	for (int i = 0; i < lines.length; i++) {
-	    res.add(lines[i]);
+	    String [] parts = lines[i].split(DELIMITER);
+	    if (parts.length != 2) {
+		continue;
+	    }
+	    res.add(new User(parts[0], parts[1]));
 	}
 
 	return res;
     }
 
-    private void save(ArrayList<String> lines) {
+    private void saveUsers(ArrayList<User> users) {
 	String s = "";
-	for (int i = 0; i < lines.size(); i++) {
-	    s = s + lines.get(i) + "\n";
+	for (int i = 0; i < users.size(); i++) {
+	    s = s + buildLine(users.get(i)) + "\n";
 	}
 	storage.write(s);
     }
