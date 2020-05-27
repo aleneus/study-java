@@ -20,9 +20,10 @@
 ** DONE [t] docs: how to create gradle project in eclipse
 ** DONE [t] ref: add User class
 ** DONE [t] ref: work with list of users in Security
-** TODO [t] test: wrong content format
-** TODO [e] test: use setup method for tests
 * later
+** TODO [t] feat: check content format
+** TODO [e] test: use setup method for tests
+** TODO [t] feat: file storage for accounts
 ** TODO [t] feat: validation of password
 ** TODO [p] ref:  think about name Storage (not canonical)
 ** TODO [t] docs: write short text about gradle wrapper
